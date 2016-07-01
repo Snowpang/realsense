@@ -2,8 +2,8 @@
 Changelog for package realsense_camera
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.2.0 (2016-06-30)
+------------------
 * Update for ROS librealsense Package Release
 * Added navigation package changes related to camera package refactor
 * Updated artifacts to disable native pointcloud by default
