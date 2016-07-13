@@ -2,8 +2,8 @@
 Changelog for package realsense_camera
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.2.1 (2016-07-13)
+------------------
 * Fix starting /camera/get_settings Service
 * Correct ROS Dependencies Install command
 
