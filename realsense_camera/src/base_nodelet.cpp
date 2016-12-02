@@ -595,7 +595,7 @@ namespace realsense_camera
       else
       {
         ROS_INFO_STREAM(nodelet_name_ << " - Enabling " << STREAM_DESC[stream_index] << " in preset mode");
-        rs_enable_stream_preset(rs_device_, stream_index, RS_PRESET_BEST_QUALITY, &rs_error_);
+        rs_enable_stream_preset(rs_device_, stream_index, RS_PRESET_BEST_STABILITY, &rs_error_);
         checkError();
       }
     }
