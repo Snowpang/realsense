@@ -297,20 +297,27 @@ namespace realsense_camera
             ", Camera FW: " + rs_get_device_firmware_version(rs_detected_device, &rs_error_);
       checkError();
 
-      if (rs_supports(rs_detected_device, RS_CAPABILITIES_ADAPTER_BOARD, &rs_error_))
+      try
       {
-        const char * adapter_fw = rs_get_device_info(rs_detected_device,
-            RS_CAMERA_INFO_ADAPTER_BOARD_FIRMWARE_VERSION, &rs_error_);
-        checkError();
-        detected_camera_msg = detected_camera_msg + ", Adapter FW: " + adapter_fw;
-      }
+        if (rs_supports(rs_detected_device, RS_CAPABILITIES_ADAPTER_BOARD, &rs_error_))
+        {
+          const char * adapter_fw = rs_get_device_info(rs_detected_device,
+              RS_CAMERA_INFO_ADAPTER_BOARD_FIRMWARE_VERSION, &rs_error_);
+          detected_camera_msg = detected_camera_msg + ", Adapter FW: " + adapter_fw;
+        }
 
-      if (rs_supports(rs_detected_device, RS_CAPABILITIES_MOTION_EVENTS, &rs_error_))
+        if (rs_supports(rs_detected_device, RS_CAPABILITIES_MOTION_EVENTS, &rs_error_))
+        {
+          const char * motion_module_fw = rs_get_device_info(rs_detected_device,
+              RS_CAMERA_INFO_MOTION_MODULE_FIRMWARE_VERSION, &rs_error_);
+          detected_camera_msg = detected_camera_msg + ", Motion Module FW: " + motion_module_fw;
+        }
+      }
+      catch(const rs::error & e)
       {
-        const char * motion_module_fw = rs_get_device_info(rs_detected_device,
-            RS_CAMERA_INFO_MOTION_MODULE_FIRMWARE_VERSION, &rs_error_);
-        checkError();
-        detected_camera_msg = detected_camera_msg + ", Motion Module FW: " + motion_module_fw;
+        ROS_WARN_STREAM(nodelet_name_ << " - " << "unable to get RealSense info "
+            << e.get_failed_function() << "(" << e.get_failed_args() << "):\n    "
+            << e.what());
       }
     }
 
